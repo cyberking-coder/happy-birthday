@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Birthday Gift Animation</title>
+    <style>
+        body {
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            font-family: Arial, sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+        .gift-box {
+            position: relative;
+            width: 200px;
+            height: 200px;
+            background: #ff5f6d;
+            border-radius: 10px;
+            box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+            cursor: pointer;
+            z-index: 10;
+        }
+        .gift-box::before,
+        .gift-box::after {
+            content: '';
+            position: absolute;
+            background: #fff;
+            border-radius: 5px;
+        }
+        .gift-box::before {
+            width: 20px;
+            height: 100%;
+            left: 90px;
+        }
+        .gift-box::after {
+            width: 100%;
+            height: 20px;
+            top: 90px;
+        }
+        .lid {
+            position: absolute;
+            width: 200px;
+            height: 30px;
+            background: #ff847c;
+            top: -30px;
+            border-radius: 10px;
+            transition: 0.6s ease;
+        }
+        .gift-box.open {
+            animation: fadeOut 1s ease forwards;
+        }
+        .gift-box.open .lid {
+            transform: translateY(-100px) rotate(-10deg);
+        }
+        .message {
+            display: none;
+            text-align: center;
+            position: absolute;
+            font-size: 16px;
+            font-family: sans-serif; /* Reduced font size */
+            color: #fff;
+            width: 60%; /* Make it occupy 60% of the screen */
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 20;
+            animation: fadeIn 1.5s ease forwards;
+            line-height: 1.5; /* Improve text readability */
+        }
+        .gift-box.open + .message {
+            display: block;
+        }
+        .image-container {
+            position: absolute;
+        }
+        .image-container img {
+            width: 150px;
+            height: 150px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        /* Positioning images in the four corners */
+        .top-left {
+            top: 20px;
+            left: 20px;
+        }
+        .top-right {
+            top: 20px;
+            right: 20px;
+        }
+        .bottom-left {
+            bottom: 20px;
+            left: 20px;
+        }
+        .bottom-right {
+            bottom: 20px;
+            right: 20px;
+        }
+        .ribbons {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .ribbons span {
+            position: absolute;
+            width: 10px;
+            height: 100px;
+            background: linear-gradient(to bottom, #ff9a9e, #fad0c4);
+            animation: fall 5s infinite;
+        }
+        .ribbons span:nth-child(odd) {
+            animation-delay: 1s;
+        }
+        .ribbons span:nth-child(even) {
+            animation-delay: 2s;
+        }
+        @keyframes fall {
+            0% {
+                top: -10%;
+                transform: rotate(0deg);
+                left: calc(10% + 80% * var(--i));
+            }
+            100% {
+                top: 110%;
+                transform: rotate(360deg);
+            }
+        }
+        .balloons {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        .balloons span {
+            position: absolute;
+            width: 50px;
+            height: 70px;
+            background: #ff5f6d;
+            border-radius: 50%;
+            animation: rise 6s infinite;
+        }
+        .balloons span:nth-child(odd) {
+            animation-delay: 2s;
+            background: #ff847c;
+        }
+        @keyframes rise {
+            0% {
+                bottom: -10%;
+                left: calc(20% + 60% * var(--i));
+                opacity: 1;
+            }
+            100% {
+                bottom: 110%;
+                opacity: 0;
+            }
+        }
+        .lights {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1), rgba(0,0,0,0.8));
+            mix-blend-mode: screen;
+            animation: flicker 2s infinite;
+        }
+        @keyframes flicker {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.8;
+            }
+        }
+        @keyframes fadeOut {
+            to {
+                opacity: 0;
+            }
+        }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="ribbons">
+        <span style="--i:0"></span>
+        <span style="--i:1"></span>
+        <span style="--i:2"></span>
+        <span style="--i:3"></span>
+        <span style="--i:4"></span>
+    </div>
+    <div class="balloons">
+        <span style="--i:0"></span>
+        <span style="--i:1"></span>
+        <span style="--i:2"></span>
+        <span style="--i:3"></span>
+        <span style="--i:4"></span>
+    </div>
+    <div class="lights"></div>
+
+    <!-- Positioned image containers -->
+    <div class="image-container top-left">
+        <img src="gayu1.jpeg" alt="Image 1">
+    </div>
+    <div class="image-container top-right">
+        <img src="gayu 2.jpeg" alt="Image 2">
+    </div>
+    <div class="image-container bottom-left">
+        <img src="gayuu3.jpeg" alt="Image 3">
+    </div>
+    <div class="image-container bottom-right">
+        <img src="gayuu4.jpeg" alt="Image 4">
+    </div>
+
+    <div class="gift-box" onclick="openGift()">
+        <div class="lid"></div>
+    </div>
+
+    <div class="message" id="birthdayMessage">
+        Hey, if you ever wondered why I gifted this cutee rabbit 🐰 to you, just think: a cutee, chubby, and pookie type girl like you is ought to receive this kind of stuff...<br><br>
+        But I'll tell you the main reason... just look at that rabbit! Plz look at him! Didn’t he bring a smile to your face? 😁<br><br>
+        I know he has. Keep smiling like that, yaar! That smile looks so pretty on you! 🥹🤌🏻<br><br>
+        So, you're just like this rabbit... No, no, not the chubby and cute part—that’s already true—but just like when you need someone to bring a smile to your face after a tiring day, this bunny will be there for you... just like you are for me!<br><br>
+        Whenever I need positive vibes, you’re like this bunny, spreading smiles even when your own life might be tough. You totally have that bunny personality! 🩷🐇🤞🏻🌍
+    </div>
+
+    <script>
+        function openGift() {
+            const giftBox = document.querySelector('.gift-box');
+            const message = document.querySelector('.message');
+            
+            giftBox.classList.add('open');
+            
+            // Show the message after opening the gift box
+            message.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
